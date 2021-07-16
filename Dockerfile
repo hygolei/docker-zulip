@@ -13,7 +13,7 @@ RUN { [ ! "$UBUNTU_MIRROR" ] || sed -i "s|http://\(\w*\.\)*archive\.ubuntu\.com/
     apt-get -q update && \
     apt-get -q dist-upgrade -y && \
     DEBIAN_FRONTEND=noninteractive \
-        apt-get -q install --no-install-recommends -y ca-certificates git locales lsb-release python3 sudo tzdata
+        apt-get -q install --no-install-recommends -y ca-certificates git locales lsb-release python3 nano sudo tzdata
 
 
 FROM base as build
@@ -79,8 +79,20 @@ RUN \
 COPY entrypoint.sh /sbin/entrypoint.sh
 COPY certbot-deploy-hook /sbin/certbot-deploy-hook
 
+RUN apt-get update && \
+    apt-get -q install nano && \
+    mkdir -p custom_zulip
+
+COPY custom_zulip_files/ /root/custom_zulip
+
+RUN cp -rf /root/custom_zulip/* /root/zulip && \
+    rm -rf /root/custom_zulip
+
+
 VOLUME ["$DATA_DIR"]
 EXPOSE 80 443
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
 CMD ["app:run"]
+
+#docker build --pull --rm -f "Dockerfile" -t dockerzulip:leitao "." --no-cache

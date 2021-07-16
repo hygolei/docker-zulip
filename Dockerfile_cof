@@ -1,0 +1,18 @@
+FROM zulip/docker-zulip:4.3-0 as base
+
+RUN apt-get update && \
+    apt-get -q install nano && \
+    mkdir -p custom_zulip
+
+COPY custom_zulip_files/871bf3516a4ec8003f2b.css /root/zulip/prod-static/serve/webpack-bundles
+COPY custom_zulip_files/871bf3516a4ec8003f2b.css /home/zulip/prod-static/webpack-bundles
+COPY custom_zulip_files/base.html /root/zulip/prod-static/serve/webpack-bundles
+COPY custom_zulip_files/portico.html /home/zulip/prod-static/webpack-bundles
+
+
+EXPOSE 80 443
+
+ENTRYPOINT ["/sbin/entrypoint.sh"]
+CMD ["app:run"]
+
+#docker build --pull --rm -f "Dockerfile" -t dockerzulip:cofidis "." --no-cache
