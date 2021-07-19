@@ -49,8 +49,8 @@ services:
       - '/Users/opt/docker/zulip/redis:/data:rw'
   zulip:
     #image: 'zulip/docker-zulip:4.3-0'
-    #image: 'dockerzulip:cofidis'
-    image: 'dockerzulip:leitao'
+    image: 'dockerzulip:cofidis'
+    #image: 'dockerzulip:leitao'
     #build:
     #  context: .
     #  args:
@@ -94,7 +94,7 @@ services:
       # SETTING_PUSH_NOTIFICATION_BOUNCER_URL: 'https://push.zulipchat.com'
     volumes:
       - '/Users/opt/docker/zulip/zulip:/data:rw'
-      - '/Users/opt/docker/zulip/zulipstaticfiles:/home/zulip/prod-static/serve/webpack-bundles:rw'
+      #- '/Users/opt/docker/zulip/zulipstaticfiles:/home/zulip/prod-static/serve/webpack-bundles:rw'
     ulimits:
       nofile:
         soft: 1000000
