@@ -49,8 +49,8 @@ services:
       - '/Users/opt/docker/zulip/redis:/data:rw'
   zulip:
     #image: 'zulip/docker-zulip:4.3-0'
-    image: 'dockerzulip:cofidis'
-    #image: 'dockerzulip:leitao'
+    #image: 'dockerzulip:cofidis'
+    image: 'hygolei/dockerzulip:leitao'
     #build:
     #  context: .
     #  args:
@@ -90,6 +90,7 @@ services:
       ZULIP_AUTH_BACKENDS: 'EmailAuthBackend'
       ZULIP_USER_EMAIL: 'cof.dsi.foco@gmail.com'
       ZULIP_USER_PASS: 'qwerty01!'
+      SETTING_MAX_FILE_UPLOAD_SIZE: '4'
       # Uncomment this when configuring the mobile push notifications service
       # SETTING_PUSH_NOTIFICATION_BOUNCER_URL: 'https://push.zulipchat.com'
     volumes:
